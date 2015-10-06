@@ -4,7 +4,7 @@
   "description": "MTG cards db for friends :)",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node start.js",
     "webpack": "webpack"
   },
   "repository": {
@@ -21,8 +21,8 @@
     "bootstrap": "^3.3.5",
     "history": "^1.9.0",
     "humps": "^0.6.0",
-    "isomorphic-fetch": "^2.1.1",
     "lodash": "^3.10.1",
+    "mongodb": "^2.0.45",
     "react": "^0.14.0-rc1",
     "react-dom": "^0.14.0-rc1",
     "react-redux": "^2.1.2",
@@ -30,7 +30,8 @@
     "redux": "^3.0.0",
     "redux-logger": "^2.0.2",
     "redux-router": "^1.0.0-beta3",
-    "redux-thunk": "^0.1.0"
+    "redux-thunk": "^0.1.0",
+    "superagent": "^1.4.0"
   },
   "devDependencies": {
     "babel-core": "^5.6.18",

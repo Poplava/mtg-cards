@@ -6,12 +6,15 @@ class Form extends Component {
   }
 
   render() {
+    const { params, onSubmit } = this.props;
+
     return (
       <form>
         <div className="form-group">
           <label>Number</label>
           <input
             onChange={this.handleChange.bind(this, 'number')}
+            value={params.number}
             className="form-control"
             type="text"
             placeholder="Number"
@@ -21,19 +24,22 @@ class Form extends Component {
           <label>Set code</label>
           <input
             onChange={this.handleChange.bind(this, 'setCode')}
+            value={params.setCode}
             className="form-control"
             type="text"
             placeholder="Set code"
             />
         </div>
-        <button className="btn btn-default" type="button">Search</button>
+        <button onClick={onSubmit} className="btn btn-default" type="button">Search</button>
       </form>
     );
   }
 }
 
 Form.propTypes = {
-  onChange: PropTypes.func.isRequired
+  params: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default Form;

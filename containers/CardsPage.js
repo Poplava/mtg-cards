@@ -1,22 +1,40 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { formChange } from '../actions/CardsActions';
+import { formChange, setQuery, requestCards } from '../actions/CardsActions';
 
 import Form from '../components/cards/Form';
 import List from '../components/cards/List';
+import '../components/cards/cards.less';
 
 class CardsPage extends Component {
+  constructor() {
+    super(...arguments);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
+
+  handleFormSubmit() {
+    const { form, setQuery, requestCards } = this.props;
+    setQuery(form.params);
+    requestCards();
+  }
+
   render() {
+    const { form, list, formChange } = this.props;
+
     return (
       <div className="row">
         <div className="col-md-3">
           <Form
-            onChange={this.props.formChange}
+            onChange={formChange}
+            onSubmit={this.handleFormSubmit}
+            params={form.params}
             />
         </div>
         <div className="col-md-9">
-          <List />
+          <List
+            {...list}
+            />
         </div>
       </div>
     );
@@ -24,13 +42,23 @@ class CardsPage extends Component {
 }
 
 CardsPage.propTypes = {
-  formChange: PropTypes.func.isRequired
+  form: PropTypes.object.isRequired,
+  formChange: PropTypes.func.isRequired,
+  setQuery: PropTypes.func.isRequired,
+  requestCards: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
-  return {};
+  const { form, list } = state.cards;
+
+  return {
+    form,
+    list
+  };
 }
 
 export default connect(mapStateToProps, {
-  formChange
+  formChange,
+  setQuery,
+  requestCards
 })(CardsPage);
