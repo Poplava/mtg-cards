@@ -5,9 +5,17 @@ class App extends Component {
   render() {
     const { children } = this.props;
     return (
-      <div>
-        <h1>App</h1>
-        {children}
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
+            <h1>App</h1>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            {children}
+          </div>
+        </div>
       </div>
     );
   }
