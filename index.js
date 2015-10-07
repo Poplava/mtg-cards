@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { ReduxRouter } from 'redux-router';
 import configureStore from './store/configureStore';
 
-import 'bootstrap/less/bootstrap.less';
+import './components/app/bootstrap.less';
 
 const store = configureStore();
 window.__store = store;
