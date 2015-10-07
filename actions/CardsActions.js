@@ -9,6 +9,14 @@ export function formChange(key, value) {
   };
 }
 
+export function formChangeColor(color, checked) {
+  return {
+    type: types.CARDS_FORM_CHANGE_COLOR,
+    color,
+    checked
+  };
+}
+
 export function setQuery(params) {
   return {
     type: types.CARDS_SET_QUERY,

@@ -5,7 +5,7 @@ class App extends Component {
   render() {
     const { children } = this.props;
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col-md-12">
             <h1>App</h1>

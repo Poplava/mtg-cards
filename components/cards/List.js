@@ -4,6 +4,7 @@ import Card from './Card';
 
 class List extends Component {
   render() {
+    console.log(this.props);
     const { status, cards, total } = this.props;
 
     return (

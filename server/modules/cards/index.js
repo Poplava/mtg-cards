@@ -25,6 +25,15 @@ function getCards(req, res) {
     dbQuery.setCode = '' + query.setCode;
   }
 
+  if (query.name) {
+    dbQuery.name = new RegExp(query.name, 'i');
+  }
+
+  if (query.colors) {
+    query.colors = query.colors.split(',');
+    dbQuery.manaCost = new RegExp('^' + query.colors.map(color => `(?=.*${color})`).join(''), 'i');
+  }
+
   MongoClient.connect(dbUrl, (err, db) => {
     var q = db.collection('cards').find(dbQuery);
 
