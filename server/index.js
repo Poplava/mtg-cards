@@ -1,5 +1,5 @@
-import routes from './routes';
+'use strict';
 
-export default function(app) {
-  routes(app);
-};
+require('babel-core/register')({});
+
+require('./app');
