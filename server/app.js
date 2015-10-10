@@ -1,4 +1,6 @@
 import express from 'express';
+import path from 'path';
+
 import * as UserController from './app/controllers/User';
 
 import { SERVER_PORT } from './config/config';
@@ -11,7 +13,7 @@ init.call(app);
 router.call(app);
 
 app.get('/', (req, res) => {
-  res.json(req.user);
+  res.sendFile(path.normalize(path.join(__dirname, '../client/index.html')));
 });
 
 app.listen(SERVER_PORT);

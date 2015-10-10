@@ -4,7 +4,8 @@
   "description": "MTG cards db for friends :)",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
