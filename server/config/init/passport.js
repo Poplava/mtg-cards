@@ -1,9 +1,9 @@
-import cookieParser from 'cookie-parser';
-import session from 'express-session';
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth2';
 
-import { AUTH_GOOGLE, AUTH_SESSION_SECRET } from '../config';
+import { AUTH_GOOGLE } from '../config';
+
+import User from '../../app/models/User';
 
 export default function() {
   passport.use(
@@ -11,37 +11,36 @@ export default function() {
         clientID: AUTH_GOOGLE.clientID,
         clientSecret: AUTH_GOOGLE.clientSecret,
         callbackURL: 'http://localhost:3000/auth/google/callback',
-        passReqToCallback   : true
+        passReqToCallback: true
       },
       (request, accessToken, refreshToken, profile, done) => {
-        //User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        //  return done(err, user);
-        //});
-        console.log(profile);
-        done(null, profile);
+        User.authGoogle(profile, done);
       }
     )
   );
 
-  passport.serializeUser(function(user, done) {
-    done(null, user);
-  });
+  passport.serializeUser((user, done) => User.serialize(user, done));
+  passport.deserializeUser((id, done) => User.deserialize(id, done));
 
-  passport.deserializeUser(function(user, done) {
-    //User.findById(id, function (err, user) {
-    //  done(err, user);
-    //});
-
-    done(null, user);
-  });
-
-
-  this.use(cookieParser());
-  this.use(session({
-    secret: AUTH_SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true
-  }));
   this.use(passport.initialize());
   this.use(passport.session());
+
+
+  this.get('/auth/google', passport.authenticate(
+    'google',
+    {
+      scope: [
+        'https://www.googleapis.com/auth/plus.login',
+        'https://www.googleapis.com/auth/plus.profile.emails.read'
+      ]
+    }
+  ));
+
+  this.get('/auth/google/callback', passport.authenticate(
+    'google',
+    {
+      successRedirect: '/',
+      failureRedirect: '/'
+    }
+  ));
 };
