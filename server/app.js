@@ -12,7 +12,7 @@ const app = express();
 init.call(app);
 router.call(app);
 
-app.get('/', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.normalize(path.join(__dirname, '../client/index.html')));
 });
 

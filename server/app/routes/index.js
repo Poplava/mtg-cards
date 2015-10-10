@@ -1,5 +1,5 @@
 import user from './user';
 
 export default function() {
-  this.use('/users', user);
+  this.use('/_/users', user);
 };
