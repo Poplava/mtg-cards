@@ -1,20 +1,32 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 
 class Navigation extends Component {
   render() {
+    const { user } = this.props;
+
     return (
-      <div>
-        <Link to="/all">All</Link>
-        <Link to="/game">In Game</Link>
-        <Link to="/my">My</Link>
-      </div>
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <IndexLink to="/" className="navbar-brand">MTG Cards Game</IndexLink>
+          </div>
+          <div className="navbar-collapse collapse">
+            <ul className="nav navbar-nav">
+              <li><Link to="/cards" activeClassName="active">All cards</Link></li>
+              <li><Link to="/game" activeClassName="active">In game cards</Link></li>
+              <li><Link to="/my" activeClassName="active">My cards</Link></li>
+            </ul>
+            <p className="navbar-text navbar-right">Signed in as <strong>{user.displayName}</strong></p>
+          </div>
+        </div>
+      </nav>
     );
   }
 }
 
-Navigation.propTypes = {};
-
-Navigation.defaultProps = {};
+Navigation.propTypes = {
+  user: PropTypes.object.isRequired
+};
 
 export default Navigation;

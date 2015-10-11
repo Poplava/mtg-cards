@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import Navigation from './Navigation';
 import Auth from './Auth';
+import NoAccess from './NoAccess';
 
 class Layout extends Component {
   render() {
@@ -11,9 +12,13 @@ class Layout extends Component {
       return <Auth />;
     }
 
+    if (user.role === 'guest') {
+      return <NoAccess />;
+    }
+
     return (
       <div>
-        <Navigation />
+        <Navigation user={user} />
         <div>{children}</div>
       </div>
     );
