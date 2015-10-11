@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { requestMe } from '../actions/UserActions';
 
-import Auth from '../components/app/Auth';
+import Layout from '../components/app/Layout';
 
 class App extends Component {
   componentDidMount() {
@@ -13,23 +13,18 @@ class App extends Component {
   render() {
     const { children, status, user } = this.props;
 
+    if (status !== 'success') {
+      return (
+        <div>
+          <h1>Loading</h1>
+        </div>
+      );
+    }
+
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-12">
-            <h1>App</h1>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12">
-            <Auth user={user} />
-            {
-              status === 'success' ?
-                <div>{children}</div> : <div>Foooooooo....</div>
-            }
-          </div>
-        </div>
-      </div>
+      <Layout user={user}>
+        {children}
+      </Layout>
     );
   }
 }
