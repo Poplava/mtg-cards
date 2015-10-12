@@ -5,10 +5,10 @@ export function requestCards(req, res) {
 
   if (req.query.name) {
     query = query.or(
-      [{ name: new RegExp(req.query.name) }]
+      [{ name: new RegExp(req.query.name, 'i') }]
     );
     query = query.or(
-      [{ 'foreignNames.language': 'Russian', 'foreignNames.name': new RegExp(req.query.name) }]
+      [{ 'foreignNames.language': 'Russian', 'foreignNames.name': new RegExp(req.query.name, 'i') }]
     );
   }
 
