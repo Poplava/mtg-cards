@@ -5,6 +5,7 @@ import { pushState } from 'redux-router';
 import { formSubmit, formChange, formSetParams } from '../actions/CardsActions';
 
 import Form from '../components/cards/Form';
+import List from '../components/cards/List';
 
 class CardsPage extends Component {
   constructor() {
@@ -16,7 +17,7 @@ class CardsPage extends Component {
   }
 
   render() {
-    const { form, formSubmit, formChange } = this.props;
+    const { form, list, formSubmit, formChange } = this.props;
 
     return (
       <div className="container-fluid">
@@ -29,7 +30,9 @@ class CardsPage extends Component {
               />
           </div>
           <div className="col-md-9">
-            CAAAARDS
+            <List
+              {...list}
+              />
           </div>
         </div>
       </div>
@@ -39,6 +42,7 @@ class CardsPage extends Component {
 
 CardsPage.propTypes = {
   form: PropTypes.object.isRequired,
+  list: PropTypes.object.isRequired,
   query: PropTypes.object.isRequired,
   pushState: PropTypes.func.isRequired,
   formSubmit: PropTypes.func.isRequired,
@@ -49,6 +53,7 @@ CardsPage.propTypes = {
 function mapStateToProps(state) {
   return {
     form: state.cards.form,
+    list: state.cards.list,
     query: state.router.location.query
   };
 }
