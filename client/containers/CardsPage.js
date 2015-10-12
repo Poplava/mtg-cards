@@ -28,6 +28,9 @@ class CardsPage extends Component {
               onChange={formChange}
               />
           </div>
+          <div className="col-md-9">
+            CAAAARDS
+          </div>
         </div>
       </div>
     );

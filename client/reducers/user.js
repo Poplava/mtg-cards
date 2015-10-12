@@ -15,7 +15,7 @@ export default function user(state = initialState, action = {}) {
     case types.USER_SUCCESS:
       return Object.assign({}, state, {
         status: 'success',
-        user: { role: 'user' } //action.user
+        user: action.user
       });
 
     case types.USER_ERROR:

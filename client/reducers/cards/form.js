@@ -1,12 +1,14 @@
 import * as types from '../../constants/cards/ActionTypes';
 
 const initialState = {
-  params: {
-    name: ''
-  }
+  params: {},
+  query: {},
+  offset: 0,
+  limit: 10,
+  total: null
 };
 
-export default function app(state = initialState, action = {}) {
+export default function form(state = initialState, action = {}) {
   switch (action.type) {
     case types.CARDS_FORM_SET_PARAMS:
       return Object.assign({}, state, {
@@ -14,9 +16,25 @@ export default function app(state = initialState, action = {}) {
       });
 
     case types.CARDS_FORM_CHANGE:
+      if (action.value) {
+        return Object.assign({}, state, {
+          params: Object.assign({}, state.params, {
+            [action.key]: action.value
+          })
+        });
+      } else {
+        const params = Object.assign({}, state.params);
+        delete(params[action.key]);
+        return Object.assign({}, state, {
+          params
+        });
+      }
+
+    case types.CARDS_FORM_SUBMIT:
       return Object.assign({}, state, {
-        params: Object.assign({}, state.params, {
-          [action.key]: action.value
+        query: Object.assign({}, state.params, {
+          offset: state.offset,
+          limit: state.limit
         })
       });
 
