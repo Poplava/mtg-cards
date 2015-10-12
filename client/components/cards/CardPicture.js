@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
 class CardPicture extends Component {
-  getMultiverseid() {
-    let multiverseid = this.props.multiverseid;
+  getRuMultiverseid() {
+    let multiverseid = null;
 
     this.props.foreignNames.forEach(foreignName => {
       if (foreignName.language === 'Russian') {
@@ -14,9 +14,25 @@ class CardPicture extends Component {
   }
 
   render() {
+    const ruMultiverseid = this.getRuMultiverseid();
+    const { multiverseid } = this.props;
+
+    let showMultiverseid = ruMultiverseid || multiverseid;
+    let originMultiverseid = ruMultiverseid ? multiverseid : null;
+
     return (
       <div className="card__picture">
-        <img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.getMultiverseid()}&type=card`} />
+        <img
+          className="card__picture__img"
+          src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${showMultiverseid}&type=card`}
+          />
+        {
+          originMultiverseid ?
+            <img
+              className="card__picture__img card__picture__img_origin"
+              src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${originMultiverseid}&type=card`}
+              /> : null
+        }
       </div>
     );
   }

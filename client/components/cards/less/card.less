@@ -5,22 +5,33 @@
   margin: 0 0 20px;
   border-radius: 13px;
   background: #333;
+  box-shadow: 0 0px 5px 1px fade(#fff, 40);
   &__picture {
     width: 223px;
     height: 310px;
     position: relative;
-    border-radius: 13px;
     z-index: 1;
     &:hover {
       z-index: 2;
     }
-    img {
+    &__img {
       display: block;
       position: relative;
       transform: scale(1);
       transition: all .2s;
-      &:hover {
-        transform: scale(1.5);
+      border-radius: 13px;
+      z-index: 2;
+      &_origin {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+      }
+    }
+    &:hover &__img {
+      transform: scale(1.5);
+      &_origin {
+        left: 340px;
       }
     }
   }

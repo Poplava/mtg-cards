@@ -11,7 +11,7 @@ class Card extends Component {
       <div className="card card_search clearfix">
         <CardPicture {...this.props} />
         <div className="card__content">
-          <CardName {...this.props} />
+          <h4><CardName {...this.props} /></h4>
         </div>
       </div>
     );
