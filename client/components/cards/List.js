@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import Progress from '../common/Progress';
+import Card from './Card';
 
 class List extends Component {
   render() {
@@ -9,7 +10,7 @@ class List extends Component {
     return (
       <div>
         {
-          cards.map(card => <div>{card.name}</div>)
+          cards.map(card => <Card key={card._id} {...card} />)
         }
         {
           status === 'request' ?

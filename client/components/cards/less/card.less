@@ -1,0 +1,33 @@
+.card {
+  position: relative;
+  padding: 5px;
+  border: 1px solid #999;
+  margin: 0 0 20px;
+  border-radius: 13px;
+  background: #333;
+  &__picture {
+    width: 223px;
+    height: 310px;
+    position: relative;
+    border-radius: 13px;
+    z-index: 1;
+    &:hover {
+      z-index: 2;
+    }
+    img {
+      display: block;
+      position: relative;
+      transform: scale(1);
+      transition: all .2s;
+      &:hover {
+        transform: scale(1.5);
+      }
+    }
+  }
+  &_search &__picture {
+    float: left;
+  }
+  &_search &__content {
+    margin: 0 0 0 240px;
+  }
+}
