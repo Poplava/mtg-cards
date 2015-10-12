@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { pushState } from 'redux-router';
 
-import { formSubmit, formChange, formSetParams } from '../actions/CardsActions';
+import { formSubmit, formChange, formSetParams, formMore } from '../actions/CardsActions';
 
 import Form from '../components/cards/Form';
 import List from '../components/cards/List';
@@ -17,7 +17,7 @@ class CardsPage extends Component {
   }
 
   render() {
-    const { form, list, formSubmit, formChange } = this.props;
+    const { form, list, formSubmit, formChange, formMore } = this.props;
 
     return (
       <div className="container-fluid">
@@ -32,6 +32,8 @@ class CardsPage extends Component {
           <div className="col-md-9">
             <List
               {...list}
+              moreExists={form.moreExists}
+              onMore={formMore}
               />
           </div>
         </div>
@@ -47,7 +49,8 @@ CardsPage.propTypes = {
   pushState: PropTypes.func.isRequired,
   formSubmit: PropTypes.func.isRequired,
   formChange: PropTypes.func.isRequired,
-  formSetParams: PropTypes.func.isRequired
+  formSetParams: PropTypes.func.isRequired,
+  formMore: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -62,5 +65,6 @@ export default connect(mapStateToProps, {
   pushState,
   formSubmit,
   formChange,
-  formSetParams
+  formSetParams,
+  formMore
 })(CardsPage);

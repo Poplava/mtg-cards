@@ -31,6 +31,12 @@ function _submit(query) {
   };
 }
 
+function _more() {
+  return {
+    type: types.CARDS_FORM_MORE
+  };
+}
+
 
 export function formChange(key, value) {
   return {
@@ -45,6 +51,24 @@ export function formSubmit(params) {
     dispatch(pushState(null, '/cards', params));
 
     dispatch(_submit(params));
+    dispatch(_request());
+
+    request
+      .get('/_/cards')
+      .query(getState().cards.form.query)
+      .end(function(err, res){
+        if (err) {
+          return dispatch(_error());
+        }
+
+        return dispatch(_success(res.body));
+      });
+  };
+}
+
+export function formMore() {
+  return (dispatch, getState) => {
+    dispatch(_more());
     dispatch(_request());
 
     request

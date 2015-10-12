@@ -5,7 +5,8 @@ const initialState = {
   query: {},
   offset: 0,
   limit: 10,
-  total: null
+  total: null,
+  moreExists: false
 };
 
 export default function form(state = initialState, action = {}) {
@@ -33,9 +34,26 @@ export default function form(state = initialState, action = {}) {
     case types.CARDS_FORM_SUBMIT:
       return Object.assign({}, state, {
         query: Object.assign({}, state.params, {
+          offset: 0,
+          limit: 10
+        }),
+        offset: 0,
+        limit: 10
+      });
+
+    case types.CARDS_FORM_MORE:
+      return Object.assign({}, state, {
+        query: Object.assign({}, state.query, {
           offset: state.offset,
           limit: state.limit
         })
+      });
+
+    case types.CARDS_SUCCESS:
+      return Object.assign({}, state, {
+        total: action.total,
+        offset: state.offset + state.limit,
+        moreExists: (state.offset + state.limit) < action.total
       });
 
     default:
