@@ -7,19 +7,31 @@ import CardName from './CardName';
 
 class Card extends Component {
   render() {
+    const { card, addToGame } = this.props;
+
     return (
       <div className="card card_search clearfix">
-        <CardPicture {...this.props} />
+        <CardPicture {...card} />
         <div className="card__content">
-          <h4><CardName {...this.props} /></h4>
+          <div className="card__name"><CardName {...card} /></div>
+          <div className="card__actions text-right">
+            {
+              addToGame ?
+                <button onClick={addToGame} className="btn btn-default">Use</button> : null
+            }
+          </div>
         </div>
       </div>
     );
   }
 }
 
-Card.propTypes = {};
+Card.propTypes = {
+  card: PropTypes.object.isRequired,
+  addToGame: PropTypes.func
+};
 
-Card.defaultProps = {};
+Card.defaultProps = {
+};
 
 export default Card;

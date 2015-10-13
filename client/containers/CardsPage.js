@@ -55,8 +55,8 @@ CardsPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    form: state.cards.form,
-    list: state.cards.list,
+    form: state.cards.form.toJS(),
+    list: state.cards.list.toJS(),
     query: state.router.location.query
   };
 }
