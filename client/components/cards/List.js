@@ -10,7 +10,7 @@ class List extends Component {
     return (
       <div>
         {
-          cards.map(card => <Card key={card._id} card={card} />)
+          cards.map(card => <Card key={card.card._id} card={card.card} />)
         }
         {
           status === 'success' && moreExists ?

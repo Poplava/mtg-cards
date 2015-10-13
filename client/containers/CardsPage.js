@@ -2,22 +2,18 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { pushState } from 'redux-router';
 
-import { formSubmit, formChange, formSetParams, formMore } from '../actions/CardsActions';
+import { formSubmit, formChange, formSetParams, formMore, itemAdd } from '../actions/CardsActions';
 
 import Form from '../components/cards/Form';
 import List from '../components/cards/List';
 
 class CardsPage extends Component {
-  constructor() {
-    super(...arguments);
-  }
-
   componentDidMount() {
     this.props.formSetParams(this.props.query);
   }
 
   render() {
-    const { form, list, formSubmit, formChange, formMore } = this.props;
+    const { form, list, formSubmit, formChange, formMore, itemAdd } = this.props;
 
     return (
       <div className="container-fluid">
@@ -34,6 +30,7 @@ class CardsPage extends Component {
               {...list}
               moreExists={form.moreExists}
               onMore={formMore}
+              onItemAdd={itemAdd}
               />
           </div>
         </div>
@@ -50,13 +47,17 @@ CardsPage.propTypes = {
   formSubmit: PropTypes.func.isRequired,
   formChange: PropTypes.func.isRequired,
   formSetParams: PropTypes.func.isRequired,
-  formMore: PropTypes.func.isRequired
+  formMore: PropTypes.func.isRequired,
+  itemAdd: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
     form: state.cards.form.toJS(),
-    list: state.cards.list.toJS(),
+    list: {
+      status: state.cards.list.get('status'),
+      cards: state.cards.list.get('cards').toList().toJS()
+    },
     query: state.router.location.query
   };
 }
@@ -66,5 +67,6 @@ export default connect(mapStateToProps, {
   formSubmit,
   formChange,
   formSetParams,
-  formMore
+  formMore,
+  itemAdd
 })(CardsPage);
