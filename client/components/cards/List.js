@@ -5,12 +5,20 @@ import Card from './Card';
 
 class List extends Component {
   render() {
-    const { status, cards, moreExists, onMore } = this.props;
+    const { status, cards, moreExists, onMore, onItemAdd } = this.props;
 
+    console.log(cards);
     return (
       <div>
         {
-          cards.map(card => <Card key={card.card._id} card={card.card} />)
+          cards.map(item => (
+            <Card
+              key={item.card._id}
+              card={item.card}
+              status={item.status}
+              onItemAdd={() => onItemAdd(item.card._id)}
+              />
+          ))
         }
         {
           status === 'success' && moreExists ?
@@ -31,7 +39,8 @@ List.propTypes = {
   status: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
   moreExists: PropTypes.bool.isRequired,
-  onMore: PropTypes.func.isRequired
+  onMore: PropTypes.func.isRequired,
+  onItemAdd: PropTypes.func
 };
 
 export default List;

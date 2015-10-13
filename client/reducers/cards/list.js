@@ -24,6 +24,16 @@ export default function list(state = initialState, action = {}) {
       });
       return state.set('status', 'success');
 
+    case types.CARDS_ITEM__ADD_REQUEST:
+      return state.setIn(['cards', action.id, 'status'], 'request');
+
+    case types.CARDS_ITEM__ADD_ERROR:
+      return state.setIn(['cards', action.id, 'status'], 'success');
+
+    case types.CARDS_ITEM__ADD_SUCCESS:
+      state = state.setIn(['cards', action.id, 'status'], 'success');
+      return state.setIn(['cards', action.id, 'card'], fromJS(action.card));
+
     default:
       return state;
   }

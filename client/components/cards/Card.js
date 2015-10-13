@@ -7,7 +7,7 @@ import CardName from './CardName';
 
 class Card extends Component {
   render() {
-    const { card, addToGame } = this.props;
+    const { card, onItemAdd } = this.props;
 
     return (
       <div className="card card_search clearfix">
@@ -16,8 +16,8 @@ class Card extends Component {
           <div className="card__name"><CardName {...card} /></div>
           <div className="card__actions text-right">
             {
-              addToGame ?
-                <button onClick={addToGame} className="btn btn-default">Use</button> : null
+              onItemAdd ?
+                <button onClick={onItemAdd} className="btn btn-default">Add to game</button> : null
             }
           </div>
         </div>
@@ -28,7 +28,7 @@ class Card extends Component {
 
 Card.propTypes = {
   card: PropTypes.object.isRequired,
-  addToGame: PropTypes.func
+  onItemAdd: PropTypes.func
 };
 
 Card.defaultProps = {

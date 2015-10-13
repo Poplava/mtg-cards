@@ -10,5 +10,6 @@ router.use((req, res, next) => {
 });
 
 router.get('/', UserController.ensureUser, CardController.requestCards);
+router.post('/:id/games', UserController.ensureAdmin, CardController.postCardGame);
 
 export default router;
