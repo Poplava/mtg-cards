@@ -5,7 +5,7 @@ const schema = new Schema({
   displayName: String,
   email: String,
   photo: String,
-  role: { type: String, default: 'guest' }
+  role: { type: Array, default: [] }
 });
 
 schema.statics.authGoogle = function(profile, done) {

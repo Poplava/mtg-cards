@@ -12,7 +12,7 @@ class Layout extends Component {
       return <Auth />;
     }
 
-    if (user.role === 'guest') {
+    if (!user.role.length) {
       return <NoAccess />;
     }
 

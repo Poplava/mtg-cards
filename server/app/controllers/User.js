@@ -7,7 +7,15 @@ export function ensureAuthenticated(req, res, next) {
 }
 
 export function ensureUser(req, res, next) {
-  if (req.isAuthenticated() && (req.user.role === 'user' || req.user.role === 'admin')) {
+  if (req.isAuthenticated() && (req.user.role.indexOf('user') > -1)) {
+    return next();
+  } else {
+    res.status(403).json({ message: 'Access denied.' });
+  }
+}
+
+export function ensureAdmin(req, res, next) {
+  if (req.isAuthenticated() && (req.user.role.indexOf('admin') > -1)) {
     return next();
   } else {
     res.status(403).json({ message: 'Access denied.' });
