@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Form from '../components/games/Form';
+import List from '../components/cards/List';
 
 import {
   formChange,
@@ -16,8 +17,9 @@ class GamePage extends Component {
   }
 
   render() {
-    const { form, formSubmit, formChange } = this.props;
+    const { form, list, formSubmit, formChange, formMore } = this.props;
 
+    console.log(list.items.map(item => item.item.card));
     return (
       <div className="container-fluid">
         <div className="row">
@@ -29,7 +31,12 @@ class GamePage extends Component {
               />
           </div>
           <div className="col-md-9">
-            Game List
+            <List
+              status={list.status}
+              cards={list.items.map(item => item.item)}
+              moreExists={form.moreExists}
+              formMore={formMore}
+              />
           </div>
         </div>
       </div>

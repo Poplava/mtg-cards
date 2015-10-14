@@ -12,10 +12,10 @@ class List extends Component {
         {
           cards.map(item => (
             <Card
-              key={item.card._id}
+              //key={item.card._id}
               card={item.card}
               status={item.status}
-              itemAdd={() => itemAdd(item.card._id)}
+              itemAdd={itemAdd && (() => itemAdd(item.card._id))}
               />
           ))
         }
