@@ -14,7 +14,7 @@ class Navigation extends Component {
           <div className="navbar-collapse collapse">
             <ul className="nav navbar-nav">
               <li><Link to="/cards" activeClassName="active">All cards</Link></li>
-              <li><Link to="/game" activeClassName="active">In game cards</Link></li>
+              <li><Link to="/games" activeClassName="active">In game cards</Link></li>
               <li><Link to="/my" activeClassName="active">My cards</Link></li>
             </ul>
             <p className="navbar-text navbar-right">Signed in as <strong>{user.displayName}</strong></p>

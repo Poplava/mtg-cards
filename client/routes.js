@@ -8,7 +8,7 @@ import MyPage from './containers/MyPage';
 export default (
   <Route component={App}>
     <Route path="/cards" component={CardsPage} />
-    <Route path="/game" component={GamePage} />
+    <Route path="/games" component={GamePage} />
     <Route path="/my" component={MyPage} />
     <Redirect from="*" to="/cards" />
   </Route>
