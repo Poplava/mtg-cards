@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { pushState } from 'redux-router';
 
 import { formSubmit, formChange, formSetParams, formMore, itemAdd } from '../actions/CardsActions';
 
@@ -43,7 +42,6 @@ CardsPage.propTypes = {
   form: PropTypes.object.isRequired,
   list: PropTypes.object.isRequired,
   query: PropTypes.object.isRequired,
-  pushState: PropTypes.func.isRequired,
   formSubmit: PropTypes.func.isRequired,
   formChange: PropTypes.func.isRequired,
   formSetParams: PropTypes.func.isRequired,
@@ -63,7 +61,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  pushState,
   formSubmit,
   formChange,
   formSetParams,
