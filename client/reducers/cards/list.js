@@ -1,16 +1,16 @@
-import { Map, List, fromJS } from 'immutable';
+import { Map, List, OrderedMap, fromJS } from 'immutable';
 
 import * as types from '../../constants/cards/ActionTypes';
 
-const initialState = fromJS({
+const initialState = new Map({
   status: 'success',
-  cards: {}
+  cards: new OrderedMap()
 });
 
 export default function list(state = initialState, action = {}) {
   switch (action.type) {
     case types.CARDS_FORM__SUBMIT:
-      return state.set('cards', new Map());
+      return state.set('cards', new OrderedMap());
 
     case types.CARDS_LIST__REQUEST:
       return state.set('status', 'request');

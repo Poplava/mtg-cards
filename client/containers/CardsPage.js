@@ -29,8 +29,8 @@ class CardsPage extends Component {
             <List
               {...list}
               moreExists={form.moreExists}
-              onMore={formMore}
-              onItemAdd={itemAdd}
+              formMore={formMore}
+              itemAdd={itemAdd}
               />
           </div>
         </div>
