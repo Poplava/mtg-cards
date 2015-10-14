@@ -41,7 +41,7 @@ function _listRequest() {
 function _listSuccess(res) {
   return {
     type: types.GAMES_LIST__SUCCESS,
-    cards: res.cards,
+    items: res.games,
     total: res.total
   };
 }
@@ -90,7 +90,7 @@ export function formMore() {
 
     request
       .get('/_/games')
-      .query(getState().cards.form.get('query').toJS())
+      .query(getState().games.form.get('query').toJS())
       .end((err, res) => {
         if (err) {
           return dispatch(_listError(err));

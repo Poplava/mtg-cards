@@ -4,22 +4,22 @@ import * as types from '../../constants/games/ActionTypes';
 
 const initialState = new Map({
   status: 'success',
-  cards: new OrderedMap()
+  items: new OrderedMap()
 });
 
 export default function list(state = initialState, action = {}) {
   switch (action.type) {
     case types.GAMES_FORM__SUBMIT:
-      return state.set('cards', new OrderedMap());
+      return state.set('items', new OrderedMap());
 
     case types.GAMES_LIST__REQUEST:
       return state.set('status', 'request');
 
     case types.GAMES_LIST__SUCCESS:
-      action.cards.forEach(card => {
-        state = state.setIn(['cards', card._id], fromJS({
+      action.items.forEach(item => {
+        state = state.setIn(['items', item._id], fromJS({
           status: 'success',
-          card
+          item
         }));
       });
       return state.set('status', 'success');
