@@ -19,7 +19,6 @@ class GamePage extends Component {
   render() {
     const { form, list, formSubmit, formChange, formMore } = this.props;
 
-    console.log(list.items.map(item => item.item.card));
     return (
       <div className="container-fluid">
         <div className="row">
