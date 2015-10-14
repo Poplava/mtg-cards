@@ -9,7 +9,7 @@ router.use((req, res, next) => {
   return next();
 });
 
-router.get('/', UserController.ensureUser, CardController.requestCards);
+router.get('/', UserController.ensureUser, CardController.getCards);
 router.post('/:id/games', UserController.ensureAdmin, CardController.postCardGame);
 
 export default router;

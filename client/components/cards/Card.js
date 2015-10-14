@@ -15,6 +15,7 @@ class Card extends Component {
         <div className="card__content">
           <div className="card__name"><CardName {...card} /></div>
           <div className="card__actions text-right">
+            <span>In game: {card.games.length} </span>
             {
               onItemAdd ?
                 <button onClick={onItemAdd} className="btn btn-default">Add to game</button> : null

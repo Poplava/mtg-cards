@@ -7,7 +7,6 @@ class List extends Component {
   render() {
     const { status, cards, moreExists, onMore, onItemAdd } = this.props;
 
-    console.log(cards);
     return (
       <div>
         {
