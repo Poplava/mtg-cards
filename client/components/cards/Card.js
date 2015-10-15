@@ -17,7 +17,7 @@ class Card extends Component {
           <div className="card__actions text-right">
             {
               card.games ?
-                <span>In game: <span className="badge">{card.games.length}</span> </span> : null
+                <span>Total in game: <span className="badge">{card.games.length}</span> </span> : null
             }
             {
               itemAdd ?
