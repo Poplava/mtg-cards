@@ -60,11 +60,11 @@ function _itemAddRequest(id) {
   };
 }
 
-function _itemAddSuccess(id, card) {
+function _itemAddSuccess(id, game) {
   return {
     type: types.CARDS_ITEM__ADD_SUCCESS,
     id,
-    card
+    game
   };
 }
 
@@ -129,8 +129,8 @@ export function itemAdd(id) {
     dispatch(_itemAddRequest(id));
 
     request
-      .post(`/_/cards/${id}/games`)
-      .send({})
+      .post(`/_/games`)
+      .send({ cardId: id })
       .end((err, res) => {
         if (err) {
           return dispatch(_itemAddError(id, err));

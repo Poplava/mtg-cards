@@ -32,7 +32,7 @@ export default function list(state = initialState, action = {}) {
 
     case types.CARDS_ITEM__ADD_SUCCESS:
       state = state.setIn(['cards', action.id, 'status'], 'success');
-      return state.setIn(['cards', action.id, 'card'], fromJS(action.card));
+      return state.setIn(['cards', action.id, 'card', 'games'], fromJS(action.game.total));
 
     default:
       return state;
