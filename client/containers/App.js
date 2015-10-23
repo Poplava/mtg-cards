@@ -1,25 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { requestMe } from '../actions/UserActions';
-
 import Layout from '../components/app/Layout';
 
 class App extends Component {
-  componentDidMount() {
-    this.props.requestMe();
-  }
-
   render() {
-    const { children, status, user } = this.props;
-
-    if (status !== 'success') {
-      return (
-        <div>
-          <h1>Loading</h1>
-        </div>
-      );
-    }
+    const { children, user } = this.props;
 
     return (
       <Layout user={user}>
@@ -31,17 +17,15 @@ class App extends Component {
 
 App.propTypes = {
   children: PropTypes.node,
-  status: PropTypes.string,
-  requestMe: PropTypes.func.isRequired
+  user: PropTypes.object
 };
 
 function mapStateToProps(state) {
+  const { user } = state;
+
   return {
-    status: state.user.status,
-    user: state.user.user
+    user: user && user.toJS()
   };
 }
 
-export default connect(mapStateToProps, {
-  requestMe
-})(App);
+export default connect(mapStateToProps)(App);

@@ -7,9 +7,9 @@ import games from './games';
 
 const rootReducer = combineReducers({
   router,
-  user,
-  cards,
-  games
+  user
+  //cards,
+  //games
 });
 
 export default rootReducer;

@@ -12,7 +12,7 @@ class Layout extends Component {
       return <Auth />;
     }
 
-    if (!user.role.length) {
+    if (!user.roles.length) {
       return <NoAccess />;
     }
 
