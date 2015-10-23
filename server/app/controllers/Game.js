@@ -3,33 +3,35 @@ import { Types } from 'mongoose';
 import Card from '../models/Card';
 import Game from '../models/Game';
 
-export function getItems(req, res) {
-  var query = Card.find({});
+export function post(req, res, next) {
+  const { cardId } = req.body;
 
-  if (req.query.name) {
-    query = query.or(
-      [{ name: new RegExp(req.query.name, 'i') }]
-    );
-    query = query.or(
-      [{ 'foreignNames.language': 'Russian', 'foreignNames.name': new RegExp(req.query.name, 'i') }]
-    );
-  }
+  Card
+    .findById(cardId)
+    .exec()
+    .then(card => {
+      if (!card) {
+        return Promise.reject('No card found.');
+      }
 
-  query.exec((err, cards) => {
-    const ids = cards.map(card => card._id);
-    var gameQuery = Game
-      .find({ card: { $in: ids } })
-      .populate('card owner')
-      .limit(req.query.limit)
-      .skip(req.query.offset);
+      return Promise.all([
+        card,
+        Game
+          .findOne({ card: card._id })
+          .exec()
+      ]);
+    })
+    .then(([card, game]) => {
+      if (!game) {
+        return Game.create({ card: card._id });
+      }
 
-    gameQuery.exec((err, games) => {
-      gameQuery.count((err, total) => {
-        res.json({
-          total,
-          games
-        });
-      });
-    });
-  });
+      game.set('total', game.total + 1);
+
+      return game.save();
+    })
+    .then(game => {
+      res.json(game);
+    })
+    .then(null, err => next(err));
 }

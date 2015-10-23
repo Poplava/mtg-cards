@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 const schema = new Schema({
   card: { type: String, ref: 'Card' },
-  owner: { type: Number, ref: 'User' },
+  total: { type: Number, default: 1 },
   addedOn: { type: Date, default: Date.now }
 });
 

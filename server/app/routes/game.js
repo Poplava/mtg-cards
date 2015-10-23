@@ -9,6 +9,6 @@ router.use((req, res, next) => {
   return next();
 });
 
-router.get('/', UserController.ensureUser, GameController.getItems);
+router.post('/', UserController.ensureAdmin, GameController.post);
 
 export default router;

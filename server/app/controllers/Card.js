@@ -3,72 +3,50 @@ import { Types } from 'mongoose';
 import Card from '../models/Card';
 import Game from '../models/Game';
 
-export function getCards(req, res) {
+export function list(req, res, next) {
+  const { name, limit, offset } = (req.query || {});
+
   var query = Card.find({});
 
-  if (req.query.name) {
+  if (name) {
     query = query.or(
-      [{ name: new RegExp(req.query.name, 'i') }]
+      [{ name: new RegExp(name, 'i') }]
     );
     query = query.or(
-      [{ 'foreignNames.language': 'Russian', 'foreignNames.name': new RegExp(req.query.name, 'i') }]
+      [{ 'foreignNames.language': 'Russian', 'foreignNames.name': new RegExp(name, 'i') }]
     );
   }
 
-  query = query.limit(req.query.limit);
-  query = query.skip(req.query.offset);
+  query = query.limit(limit || 10);
+  query = query.skip(offset || 0);
 
-  query.exec((err, cards) => {
-    query.count((err, total) => {
+  query
+    .exec()
+    .then(cards => {
       const ids = cards.map(card => card._id);
 
-      Game
-        .find({ card: { $in: ids }})
-        .exec((err, games) => {
-          res.json({
-            total,
-            cards: cards.map(card => {
-              card = card.toJSON();
-              card.games = games.filter(game => {
-                return game.card === card._id;
-              });
-
-              return card;
-            })
+      return Promise.all([
+        cards,
+        query.count(),
+        Game
+          .find({ card: { $in: ids }})
+          .exec()
+      ]);
+    })
+    .then(([cards, total, games]) => {
+      res.json({
+        total,
+        cards: cards.map(card => {
+          const game = games.find(game => {
+            return game.card === card._id;
           });
-        });
-    });
-  });
-}
 
-export function postCardGame(req, res) {
-  const { id } = req.params;
+          card = card.toJSON();
+          card.games = game ? game.total : 0;
 
-  Card
-    .findById(id)
-    .exec((err, card) => {
-      if (!card) {
-        return res.status(404).json({});
-      }
-
-      Game
-        .create({ card: card._id }, (err, game) => {
-          Card
-            .findById(id)
-            .exec((err, card) => {
-              if (!card) {
-                return res.status(404).json({});
-              }
-
-              Game
-                .find({ card: id })
-                .exec((err, games) => {
-                  card = card.toJSON();
-                  card.games = games;
-
-                  return res.json(card);
-                });
-            });
-        });
-    });
+          return card;
+        })
+      });
+    })
+    .then(null, err => next(err));
 }
