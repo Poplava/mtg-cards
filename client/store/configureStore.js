@@ -21,14 +21,15 @@ const finalCreateStore = compose(
         if (Iterable.isIterable(state[key])) {
           newState[key] = state[key].toJS();
         } else {
-          newState[key] = state[key];
-
-          if (state[key]) {
+          if (state[key] && Object.keys(state[key]).length) {
+            newState[key] = {};
             Object.keys(state[key]).forEach(_key => {
               if (Iterable.isIterable(state[key][_key])) {
                 newState[key][_key] = state[key][_key].toJS();
               }
             });
+          } else {
+            newState[key] = state[key];
           }
         }
       });
