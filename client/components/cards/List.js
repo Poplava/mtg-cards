@@ -15,7 +15,7 @@ class List extends Component {
               key={item.card._id}
               card={item.card}
               status={item.status}
-              itemAdd={itemAdd && (() => itemAdd(item.card._id))}
+              itemAdd={itemAdd && (() => itemAdd(item.card._id, item.card.game ? item.card.game.total : 0))}
               />
           ))
         }

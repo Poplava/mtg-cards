@@ -124,13 +124,13 @@ export function formMore() {
   };
 }
 
-export function itemAdd(id) {
+export function itemAdd(id, total) {
   return dispatch => {
     dispatch(_itemAddRequest(id));
 
     request
-      .post(`/_/games`)
-      .send({ cardId: id })
+      .put(`/_/games`)
+      .send({ card: id, total: ++total })
       .end((err, res) => {
         if (err) {
           return dispatch(_itemAddError(id, err));
