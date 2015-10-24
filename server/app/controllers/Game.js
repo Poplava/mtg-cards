@@ -3,35 +3,32 @@ import { Types } from 'mongoose';
 import Card from '../models/Card';
 import Game from '../models/Game';
 
-export function post(req, res, next) {
-  const { cardId } = req.body;
+export function put(req, res, next) {
+  const { card, total } = req.body;
 
   Card
-    .findById(cardId)
+    .findById(card)
     .exec()
-    .then(card => {
-      if (!card) {
+    .then(_card => {
+      if (!_card) {
         return Promise.reject('No card found.');
       }
 
-      return Promise.all([
-        card,
-        Game
-          .findOne({ card: card._id })
-          .exec()
-      ]);
+      return Game
+        .findOne({ card: card })
+        .exec();
     })
-    .then(([card, game]) => {
-      if (!game) {
-        return Game.create({ card: card._id });
+    .then(_game => {
+      if (!_game) {
+        return Game.create({ card: card });
       }
 
-      game.set('total', game.total + 1);
+      _game.set('total', total);
 
-      return game.save();
+      return _game.save();
     })
-    .then(game => {
-      res.json(game);
+    .then(_game => {
+      res.json(_game);
     })
     .then(null, err => next(err));
 }

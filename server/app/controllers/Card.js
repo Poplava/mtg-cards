@@ -42,7 +42,7 @@ export function list(req, res, next) {
           });
 
           card = card.toJSON();
-          card.games = game ? game.total : 0;
+          card.game = game;
 
           return card;
         })
