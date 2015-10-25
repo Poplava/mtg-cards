@@ -10,7 +10,7 @@ export default function() {
     new GoogleStrategy({
         clientID: AUTH_GOOGLE.clientID,
         clientSecret: AUTH_GOOGLE.clientSecret,
-        callbackURL: 'http://localhost:3000/auth/google/callback',
+        callbackURL: AUTH_GOOGLE.redirect,
         passReqToCallback: true
       },
       (request, accessToken, refreshToken, profile, done) => {

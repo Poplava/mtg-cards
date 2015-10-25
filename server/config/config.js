@@ -4,7 +4,8 @@ export const MONGO_URL = 'mongodb://localhost:27017/mtgCards';
 
 export const AUTH_GOOGLE = {
   clientID: '646618816130-sc9m938fukhl90rb56g1ls44dovabbai.apps.googleusercontent.com',
-  clientSecret: 'm0A1SMEY2nbzfbSWc8T9KxHO'
+  clientSecret: 'm0A1SMEY2nbzfbSWc8T9KxHO',
+  redirect: 'http://localhost:3000/auth/google/callback'
 };
 
 export const AUTH_SESSION_SECRET = 'keyboard cat';
