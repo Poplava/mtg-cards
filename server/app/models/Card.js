@@ -3,6 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 const schema = new Schema({
   _id: String,
   setCode: String,
+  setName: String,
   layout: String,
   type: String,
   types: [String],
