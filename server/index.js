@@ -2,4 +2,4 @@
 
 require('babel-core/register')({});
 
-require('./dump');
+require('./app');

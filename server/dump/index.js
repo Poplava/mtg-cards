@@ -19,7 +19,7 @@ Object.keys(dataList).forEach(function(setName) {
     model.setName = data.setName;
     model._id = card.id;
     model.save(() => {
-      console.log(`Saved ${data.code} ${model.number}`);
+      //console.log(`Saved ${data.code} ${model.number}`);
     });
   });
 
