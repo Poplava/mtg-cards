@@ -10,6 +10,10 @@ class App extends Component {
     return (
       <Layout user={user}>
         {children}
+        <br/>
+        <br/>
+        <br/>
+        <br/>
       </Layout>
     );
   }

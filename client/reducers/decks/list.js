@@ -11,7 +11,7 @@ const initialState = new Map({
 export default function list(state = initialState, action = {}) {
   switch (action.type) {
     case types.DECKS_LIST__REQUEST:
-      return initialState.set('status', 'request');
+      return state.set('status', 'request');
 
     case types.DECKS_LIST__SUCCESS:
       state = state.set('status', 'success');
@@ -19,7 +19,7 @@ export default function list(state = initialState, action = {}) {
       return state.set('decks', new OrderedMap(action.decks.map(deck => [deck._id, fromJS(deck)])));
 
     case types.DECKS_LIST__ERROR:
-      return initialState;
+      return state.set('status', 'success');
 
     default:
       return state;

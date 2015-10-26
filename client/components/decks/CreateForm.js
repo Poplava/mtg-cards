@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import FormGroup from '../common/FormGroup';
 import Field from '../common/Field';
+import Panel from '../common/Panel';
 
 class CreateForm extends Component {
   handleSubmit(key, event) {
@@ -16,7 +17,7 @@ class CreateForm extends Component {
     const { form, formSubmit } = this.props;
 
     return (
-      <div>
+      <Panel>
         <FormGroup label="Title">
           <Field
             value={form.title}
@@ -25,7 +26,7 @@ class CreateForm extends Component {
             />
         </FormGroup>
         <button onClick={() => formSubmit(form.title)} className="btn btn-default" type="button" disabled={!form.title}>Create a Deck</button>
-      </div>
+      </Panel>
     );
   }
 }
