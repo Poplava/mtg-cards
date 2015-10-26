@@ -15,12 +15,6 @@ export function list(req, res, next) {
     query = query.or(
       [{ 'foreignNames.language': 'Russian', 'foreignNames.name': new RegExp(name, 'i') }]
     );
-    query = query.or(
-      [{ 'foreignNames.language': 'Russian', 'foreignNames.name': new RegExp(name, 'i') }]
-    );
-    query = query.or(
-      [{ 'number': 'Russian', 'foreignNames.name': new RegExp(name, 'i') }]
-    );
   }
 
   query = query.limit(limit || 10);
