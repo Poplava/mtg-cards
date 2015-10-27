@@ -51,6 +51,26 @@ function _formError() {
   };
 }
 
+function _viewRequest() {
+  return {
+    type: types.DECKS_VIEW__REQUEST
+  };
+}
+
+function _viewSuccess(deck) {
+  return {
+    type: types.DECKS_VIEW__SUCCESS,
+    deck
+  };
+}
+
+function _viewError(err) {
+  return {
+    type: types.DECKS_VIEW__ERROR,
+    err
+  };
+}
+
 // ActionCreators
 
 export function listRequest() {
@@ -87,6 +107,22 @@ export function formSubmit(title) {
         dispatch(listRequest());
 
         return dispatch(_formSuccess());
+      });
+  };
+}
+
+export function viewRequest(id) {
+  return dispatch => {
+    dispatch(_viewRequest());
+
+    return request
+      .get(`/_/decks/${id}`)
+      .end((err, { body }) => {
+        if (err) {
+          return dispatch(_viewError(err));
+        }
+
+        return dispatch(_viewSuccess(body));
       });
   };
 }
