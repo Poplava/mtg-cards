@@ -1,11 +1,19 @@
 import db from './db';
 import webpack from './webpack';
+import serve from './serve';
 import middleware from './middleware';
 import passport from './passport';
 
 export default function() {
+  console.log(this.get('env'));
   initialize(this, 'db', db);
-  initialize(this, 'webpack', webpack);
+
+  if (this.get('env') !== 'production') {
+    initialize(this, 'webpack', webpack);
+  } else {
+    initialize(this, 'serve', serve);
+  }
+
   initialize(this, 'middleware', middleware);
   initialize(this, 'passport', passport);
 };
