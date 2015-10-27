@@ -27,3 +27,12 @@ export function create(req, res, next) {
     })
     .then(deck => res.json(deck), next);
 }
+
+export function view(req, res, next) {
+  const { id } = req.params;
+
+  Deck
+    .findById(id)
+    .exec()
+    .then(deck => res.json(deck), next);
+}
