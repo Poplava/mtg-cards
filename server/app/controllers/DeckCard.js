@@ -18,23 +18,3 @@ export function list(req, res, next) {
       next
     );
 }
-
-export function create(req, res, next) {
-  const { title } = req.body;
-
-  Deck
-    .create({
-      owner: req.user._id,
-      title
-    })
-    .then(deck => res.json(deck), next);
-}
-
-export function view(req, res, next) {
-  const { id } = req.params;
-
-  Deck
-    .findById(id)
-    .exec()
-    .then(deck => res.json(deck), next);
-}

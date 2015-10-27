@@ -1,5 +1,14 @@
 import mongoose, { Schema } from 'mongoose';
 
+const TYPES = [
+  'Land',
+  'Enchantment',
+  'Artifact',
+  'Creature',
+  'Sorcery',
+  'Instant'
+];
+
 const schema = new Schema({
   _id: String,
   setCode: String,
@@ -33,5 +42,54 @@ const schema = new Schema({
   variations: [Number],
   addedOn: { type: Date, default: Date.now }
 });
+
+schema.statics.buildQuery = function(params = {}) {
+  const { name, cmc, types } = params;
+
+  var conditions = [];
+  var query = this.find({ multiverseid: { $gt: 0 } });
+
+  if (name) {
+    conditions.push({
+      $or: [{ name: new RegExp(name, 'i') }, { 'foreignNames.language': 'Russian', 'foreignNames.name': new RegExp(name, 'i') }]
+    });
+  }
+
+  if (Array.isArray(cmc) && cmc.length) {
+    conditions.push({
+      $or: cmc
+        .filter(value => value >=0 && value < 7)
+        .map(value => {
+          value = parseInt(value);
+
+          if (value === 6) {
+            return { cmc: { $gt: value } };
+          }
+
+          return { cmc: value };
+        })
+    });
+  }
+
+  if (Array.isArray(types) && types.length) {
+    conditions.push({
+      $or: types
+        .filter(value => TYPES.indexOf(value) > -1)
+        .map(value => {
+          return { types: value };
+        })
+    });
+  }
+
+  if (conditions.length) {
+    query = query.and(conditions);
+  }
+
+  return query;
+};
+
+schema.statics.queryLimit = function(query, limit = 10, skip = 0) {
+  return query.limit(limit).skip(skip);
+};
 
 export default mongoose.model('Card', schema);
