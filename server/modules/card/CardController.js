@@ -1,10 +1,10 @@
 import Card from '../../models/Card';
 import Game from '../../models/Game';
 
-import { LIMIT } from './Constants';
+import { LIMIT } from '../app/Constants';
 
 export function list(req, res, next) {
-  const { limit, offset } = (req.query || {});
+  const { limit, skip } = (req.query || {});
 
   var query = Card
     .buildQuery(req.query);
@@ -16,7 +16,7 @@ export function list(req, res, next) {
         total,
         query
           .limit(limit || LIMIT)
-          .skip(offset || 0)
+          .skip(skip || 0)
           .exec('find')
       ])
     )

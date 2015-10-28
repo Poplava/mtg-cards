@@ -25,8 +25,7 @@ export function list(req, res, next) {
     .then(
       cards => cards.map(card => card._id)
     )
-    .then(
-      cardsIds => {
+    .then(cardsIds => {
         var query = Game
           .find({ card: { $in: cardsIds }})
           .limit(limit || 10)
