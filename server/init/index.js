@@ -1,21 +1,15 @@
-import db from './db';
-import webpack from './webpack';
 import serve from './serve';
+import webpack from './webpack';
 import middleware from './middleware';
 import passport from './passport';
+import routes from './routes';
 
 export default function() {
-  console.log(this.get('env'));
-  initialize(this, 'db', db);
-
-  if (this.get('env') !== 'production') {
-    initialize(this, 'webpack', webpack);
-  } else {
-    initialize(this, 'serve', serve);
-  }
-
+  initialize(this, 'serve', serve);
+  initialize(this, 'webpack', webpack);
   initialize(this, 'middleware', middleware);
   initialize(this, 'passport', passport);
+  initialize(this, 'routes', routes);
 };
 
 function initialize(app, name, fn) {

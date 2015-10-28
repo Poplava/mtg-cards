@@ -3,7 +3,7 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth2';
 
 import { AUTH_GOOGLE } from '../config';
 
-import User from '../../app/models/User';
+import User from '../models/User';
 
 export default function() {
   passport.use(

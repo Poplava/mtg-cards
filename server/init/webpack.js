@@ -1,6 +1,6 @@
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackConfig from '../../../webpack.config';
+import webpackConfig from '../../webpack.config';
 
 const compiler = webpack(webpackConfig);
 

@@ -46,6 +46,7 @@
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
     "mongoose": "^4.1.10",
+    "morgan": "^1.6.1",
     "passport": "^0.3.0",
     "passport-google-oauth2": "^0.1.6",
     "style-loader": "^0.12.4",
