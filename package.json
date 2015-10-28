@@ -4,7 +4,7 @@
   "description": "MTG cards db for friends :)",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "nodemon server/index.js",
     "webpack": "webpack",
     "preweb": "webpack -p",
     "web": "NODE_ENV=production node server/index.js"
@@ -47,6 +47,7 @@
     "less-loader": "^2.2.1",
     "mongoose": "^4.1.10",
     "morgan": "^1.6.1",
+    "nodemon": "^1.8.0",
     "passport": "^0.3.0",
     "passport-google-oauth2": "^0.1.6",
     "style-loader": "^0.12.4",

@@ -88,4 +88,18 @@ schema.statics.buildQuery = function(params = {}) {
   return query;
 };
 
+schema.statics.mapGames = function(cards, games) {
+  console.log(123);
+  return cards.map(card => {
+    const game = games.find(game => {
+      return game.card === card._id;
+    });
+
+    card = card.toJSON();
+    card.game = game;
+
+    return card;
+  });
+};
+
 export default mongoose.model('Card', schema);
