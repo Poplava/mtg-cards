@@ -18,5 +18,5 @@ render(
   <Provider store={store}>
     <ReduxRouter />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('react-root')
 );
