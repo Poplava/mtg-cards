@@ -89,7 +89,6 @@ schema.statics.buildQuery = function(params = {}) {
 };
 
 schema.statics.mapGames = function(cards, games) {
-  console.log(123);
   return cards.map(card => {
     const game = games.find(game => {
       return game.card === card._id;

@@ -1,35 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import Layout from '../components/app/Layout';
+import { initialize } from '../actions/AppActions';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.initialize();
+  }
+
   render() {
-    const { children, user } = this.props;
+    const { children } = this.props;
 
     return (
-      <Layout user={user}>
+      <div>
         {children}
         <br/>
         <br/>
         <br/>
         <br/>
-      </Layout>
+      </div>
     );
   }
 }
 
 App.propTypes = {
   children: PropTypes.node,
-  user: PropTypes.object
+  initialize: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
-  const { user } = state;
-
-  return {
-    user: user && user.toJS()
-  };
+  return {};
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, { initialize })(App);

@@ -5,4 +5,4 @@ import * as UserController from '../user/UserController';
 
 export const router = Router();
 
-router.get('/', UserController.ensureUser, CardController.list);
+router.get('/', /*UserController.ensureUser, */CardController.list);

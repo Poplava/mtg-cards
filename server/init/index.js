@@ -6,7 +6,7 @@ import passport from './passport';
 import routes from './routes';
 
 export default function() {
-  initialize(this, 'serve', serve);
+  //initialize(this, 'serve', serve);
   initialize(this, 'webpack', webpack);
   initialize(this, 'db', db);
   initialize(this, 'middleware', middleware);
