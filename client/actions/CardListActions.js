@@ -1,15 +1,16 @@
-export const CARD_SEARCH_FORM__CHANGE_TEXT = 'CARD_SEARCH_FORM__CHANGE_TEXT';
-export const CARD_SEARCH_FORM__CHANGE_CHECKBOX = 'CARD_SEARCH_FORM__CHANGE_CHECKBOX';
-export const CARD_SEARCH_FORM__SET_QUERY = 'CARD_SEARCH_FORM__SET_QUERY';
-export const CARD_SEARCH_FORM__REQUEST = 'CARD_SEARCH_FORM__REQUEST';
-export const CARD_SEARCH_FORM__SUCCESS = 'CARD_SEARCH_FORM__SUCCESS';
-export const CARD_SEARCH_FORM__ERROR = 'CARD_SEARCH_FORM__ERROR';
+export const CARD_LIST__CHANGE_TEXT = 'CARD_LIST__CHANGE_TEXT';
+export const CARD_LIST__CHANGE_CHECKBOX = 'CARD_LIST__CHANGE_CHECKBOX';
+export const CARD_LIST__SET_QUERY = 'CARD_LIST__SET_QUERY';
+export const CARD_LIST__SUBMIT = 'CARD_LIST__SUBMIT';
+export const CARD_LIST__REQUEST = 'CARD_LIST__REQUEST';
+export const CARD_LIST__SUCCESS = 'CARD_LIST__SUCCESS';
+export const CARD_LIST__ERROR = 'CARD_LIST__ERROR';
 
 import { requestCards } from '../utils/APIUtils';
 
 function _changeText(name, value) {
   return {
-    type: CARD_SEARCH_FORM__CHANGE_TEXT,
+    type: CARD_LIST__CHANGE_TEXT,
     name,
     value
   };
@@ -17,7 +18,7 @@ function _changeText(name, value) {
 
 function _changeCheckbox(name, value, checked) {
   return {
-    type: CARD_SEARCH_FORM__CHANGE_CHECKBOX,
+    type: CARD_LIST__CHANGE_CHECKBOX,
     name,
     value,
     checked
@@ -26,27 +27,33 @@ function _changeCheckbox(name, value, checked) {
 
 function _setQuery(params) {
   return {
-    type: CARD_SEARCH_FORM__SET_QUERY,
+    type: CARD_LIST__SET_QUERY,
     params
+  };
+}
+
+function _submit() {
+  return {
+    type: CARD_LIST__SUBMIT
   };
 }
 
 function _request() {
   return {
-    type: CARD_SEARCH_FORM__REQUEST
+    type: CARD_LIST__REQUEST
   };
 }
 
 function _success(response) {
   return {
-    type: CARD_SEARCH_FORM__SUCCESS,
+    type: CARD_LIST__SUCCESS,
     response
   };
 }
 
 function _error() {
   return {
-    type: CARD_SEARCH_FORM__ERROR
+    type: CARD_LIST__ERROR
   };
 }
 
@@ -60,10 +67,11 @@ export function changeCheckbox(name, value, checked) {
 
 export function submit(params) {
   return (dispatch, getState) => {
+    dispatch(_submit());
     dispatch(_setQuery(params));
     dispatch(_request());
 
-    requestCards(getState().cardSearchForm.query)
+    requestCards(getState().cardList.query)
       .then(
         response => dispatch(_success(response)),
         err => dispatch(_error(err))

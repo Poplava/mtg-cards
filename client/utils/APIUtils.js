@@ -21,12 +21,9 @@ export function requestCards(params) {
             return reject(err);
           }
 
-          return resolve(normalize(
-            res.body,
-            {
-              cards: arrayOf(cardSchema)
-            }
-          ));
+          return resolve(
+            normalize(res.body, { cards: arrayOf(cardSchema) })
+          );
         })
   );
 }
