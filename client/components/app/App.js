@@ -25,7 +25,6 @@ class Root extends Component {
             />
         </div>
         <div className="App__main">
-          Main
           {children}
         </div>
       </div>
