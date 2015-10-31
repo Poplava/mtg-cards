@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import './App.less';
 
 import Auth from '../auth/Auth';
+import Nav from '../nav/Nav';
 
 class Root extends Component {
   render() {
@@ -18,7 +19,11 @@ class Root extends Component {
 
     return (
       <div className="App__root">
-        <div className="App__nav">Nav</div>
+        <div className="App__nav">
+          <Nav
+            user={user}
+            />
+        </div>
         <div className="App__main">
           Main
           {children}
