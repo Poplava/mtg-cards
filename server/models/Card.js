@@ -1,13 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-const TYPES = [
-  'Land',
-  'Enchantment',
-  'Artifact',
-  'Creature',
-  'Sorcery',
-  'Instant'
-];
+import * as Constants from '../../shared/Constants';
 
 const schema = new Schema({
   _id: String,
@@ -44,7 +37,7 @@ const schema = new Schema({
 });
 
 schema.statics.buildQuery = function(params = {}) {
-  const { name, cmc, types } = params;
+  const { name, cmc, types, colors } = params;
 
   var conditions = [];
   var query = this.find({ multiverseid: { $gt: 0 } });
@@ -58,7 +51,7 @@ schema.statics.buildQuery = function(params = {}) {
   if (Array.isArray(cmc) && cmc.length) {
     conditions.push({
       $or: cmc
-        .filter(value => value >=0 && value < 7)
+        .filter(value => Constants.CARD_CMC.indexOf(parseInt(value)) > -1)
         .map(value => {
           value = parseInt(value);
 
@@ -74,9 +67,19 @@ schema.statics.buildQuery = function(params = {}) {
   if (Array.isArray(types) && types.length) {
     conditions.push({
       $or: types
-        .filter(value => TYPES.indexOf(value) > -1)
+        .filter(value => Constants.CARD_TYPES.indexOf(value) > -1)
         .map(value => {
           return { types: value };
+        })
+    });
+  }
+
+  if (Array.isArray(colors) && colors.length) {
+    conditions.push({
+      $or: colors
+        .filter(value => Constants.CARD_COLORS.indexOf(value) > -1)
+        .map(value => {
+          return { colors: value };
         })
     });
   }

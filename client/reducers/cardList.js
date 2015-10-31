@@ -1,4 +1,5 @@
 import merge from 'lodash/object/merge';
+import assign from 'lodash/object/assign';
 import uniq from 'lodash/array/uniq';
 
 import * as Constants from '../../shared/Constants';
@@ -10,7 +11,8 @@ const initialState = {
   params: {
     name: '',
     types: [],
-    colors: []
+    colors: [],
+    cmc: []
   },
   total: 0,
   skip: 0,
@@ -27,12 +29,12 @@ export default function(state = initialState, action = {}) {
       return changeCheckbox(state, action);
 
     case types.CARD_LIST__SET_QUERY:
-      return merge({}, state, {
-        query: merge({}, action.params, { skip: 0, limit: Constants.LIMIT })
+      return assign({}, state, {
+        query: assign({}, action.params, { skip: 0, limit: Constants.LIMIT })
       });
 
     case types.CARD_LIST__SUBMIT:
-      return merge({}, state, {
+      return assign({}, state, {
         cards: []
       });
 
@@ -59,17 +61,17 @@ export default function(state = initialState, action = {}) {
 };
 
 function changeCheckbox(state, action) {
-  state = merge({}, state, {
-    params: {
+  state = assign({}, state, {
+    params: assign({}, state.params, {
       [action.name]: state.params[action.name].filter(item => item !== action.value)
-    }
+    })
   });
 
   if (action.checked) {
-    state = merge({}, state, {
-      params: {
+    state = assign({}, state, {
+      params: assign({}, state.params, {
         [action.name]: [...state.params[action.name], action.value]
-      }
+      })
     });
   }
 

@@ -15,7 +15,7 @@ export function requestCards(params) {
   return new Promise(
     (resolve, reject) =>
       request('/_/cards')
-        .query(stringify(params))
+        .query(stringify(params, { arrayFormat: 'brackets' }))
         .end((err, res) => {
           if (err) {
             return reject(err);

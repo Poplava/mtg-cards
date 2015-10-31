@@ -5,35 +5,53 @@ import { changeText, changeCheckbox, submit } from '../actions/CardListActions';
 
 import PageHead from '../components/pageHead/PageHead';
 import SearchForm from '../components/searchForm/SearchForm';
+import CardList from '../components/cardList/CardList';
 
 class CardListPage extends Component {
   render() {
-    const { cardListParams, changeText, changeCheckbox, submit } = this.props;
+    const { params, total, status, cards, changeText, changeCheckbox, submit } = this.props;
 
     return (
       <div>
         <PageHead>Cards</PageHead>
         <SearchForm
-          params={cardListParams}
+          params={params}
+          total={total}
           onChangeText={changeText}
           onChangeCheckbox={changeCheckbox}
           onSubmit={submit}
           />
+        <CardList
+          cards={cards}
+          />
+        {
+          status === 'request' ?
+            <div>Loading</div> : null
+        }
       </div>
-
     );
   }
 }
 
 CardListPage.propTypes = {
+  params: PropTypes.object.isRequired,
+  total: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  cards: PropTypes.array.isRequired,
   changeText: PropTypes.func.isRequired,
   changeCheckbox: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
+  const { params, total, status, cards } = state.cardList;
+  const cardsById = state.entities.cards;
+
   return {
-    cardListParams: state.cardList.params
+    params,
+    status,
+    total,
+    cards: cards.map(card => cardsById[card])
   };
 }
 

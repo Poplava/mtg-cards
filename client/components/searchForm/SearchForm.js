@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
-import { CARD_TYPES, CARD_COLORS } from '../../../shared/Constants';
+import { CARD_TYPES, CARD_CMC, CARD_COLORS } from '../../../shared/Constants';
 
 import './SearchForm.less';
 
 class SearchForm extends Component {
   render() {
-    const { params, onChangeText, onChangeCheckbox, onSubmit } = this.props;
+    const { params, total, onChangeText, onChangeCheckbox, onSubmit } = this.props;
 
     return (
       <div className="SearchForm__root">
@@ -38,6 +38,22 @@ class SearchForm extends Component {
         </div>
         <div className="SearchForm__fieldGroup">
           {
+            CARD_CMC.map(cmc => (
+              <div key={cmc} className="SearchForm__field">
+                <label>
+                  <input
+                    type="checkbox"
+                    onChange={event => onChangeCheckbox('cmc', cmc, event.target.checked)}
+                    checked={params.cmc.indexOf(cmc) >= 0}
+                    />
+                  {cmc}
+                </label>
+              </div>
+            ))
+          }
+        </div>
+        <div className="SearchForm__fieldGroup">
+          {
             CARD_COLORS.map(color => (
               <div key={color} className="SearchForm__field">
                 <label>
@@ -57,6 +73,11 @@ class SearchForm extends Component {
             <button onClick={event => onSubmit(params)}>Search</button>
           </div>
         </div>
+        <div className="SearchForm__fieldGroup">
+          <div className="SearchForm__field">
+            {'Total found: ' + total}
+          </div>
+        </div>
       </div>
     );
   }
@@ -64,6 +85,7 @@ class SearchForm extends Component {
 
 SearchForm.propTypes = {
   params: PropTypes.object.isRequired,
+  total: PropTypes.number.isRequired,
   onChangeText: PropTypes.func.isRequired,
   onChangeCheckbox: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired
