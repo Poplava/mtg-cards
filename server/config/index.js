@@ -1,6 +1,6 @@
 export const SERVER_PORT = 3000;
 
-export const MONGO_URL = 'mongodb://localhost:27017/mtgCards';
+export const MONGO_URL = 'mongodb://192.168.1.117:27017/mtgCards';
 
 export const AUTH_GOOGLE = {
   clientID: '646618816130-sc9m938fukhl90rb56g1ls44dovabbai.apps.googleusercontent.com',
