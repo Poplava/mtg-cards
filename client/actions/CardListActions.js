@@ -87,6 +87,19 @@ export function submit(params) {
   };
 }
 
+export function more() {
+  return (dispatch, getState) => {
+    dispatch(_setQuery(getState().cardList.query));
+    dispatch(_request());
+
+    requestCards(getState().cardList.query)
+      .then(
+        response => dispatch(_success(response)),
+        err => dispatch(_error(err))
+    );
+  };
+}
+
 export function submitGame(card, total) {
   return dispatch => {
     putGame(card, total)

@@ -16,7 +16,6 @@ const initialState = {
   },
   total: 0,
   skip: 0,
-  limit: Constants.LIMIT,
   query: {}
 };
 
@@ -30,12 +29,14 @@ export default function(state = initialState, action = {}) {
 
     case types.CARD_LIST__SET_QUERY:
       return assign({}, state, {
-        query: assign({}, action.params, { skip: 0, limit: Constants.LIMIT })
+        query: assign({ limit: Constants.LIMIT }, action.params, { skip: state.skip }),
+        skip: state.skip + Constants.LIMIT
       });
 
     case types.CARD_LIST__SUBMIT:
       return assign({}, state, {
-        cards: []
+        cards: [],
+        skip: 0
       });
 
     case types.CARD_LIST__REQUEST:
