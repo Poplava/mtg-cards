@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import PageHead from '../components/pageHead/PageHead';
+
 class CardListPage extends Component {
   render() {
     return (
-      <div className="container-fluid">
-        CARDS
-      </div>
+      <PageHead>Cards</PageHead>
     );
   }
 }

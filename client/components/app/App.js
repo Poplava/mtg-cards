@@ -5,7 +5,7 @@ import './App.less';
 import Auth from '../auth/Auth';
 import Nav from '../nav/Nav';
 
-class Root extends Component {
+class App extends Component {
   render() {
     const { user, children } = this.props;
 
@@ -32,13 +32,13 @@ class Root extends Component {
   }
 }
 
-Root.propTypes = {
+App.propTypes = {
   children: PropTypes.node,
   user: PropTypes.object
 };
 
-Root.defaultProps = {
+App.defaultProps = {
   user: null
 };
 
-export default Root;
+export default App;

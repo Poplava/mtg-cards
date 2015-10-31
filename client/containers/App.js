@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { initialize } from '../actions/AppActions';
 
-import Root from '../components/app/Root';
+import AppRoot from '../components/app/App';
 
 class App extends Component {
   componentDidMount() {
@@ -14,9 +14,9 @@ class App extends Component {
     const { children, user } = this.props;
 
     return (
-      <Root user={user}>
+      <AppRoot user={user}>
         {children}
-      </Root>
+      </AppRoot>
     );
   }
 }
