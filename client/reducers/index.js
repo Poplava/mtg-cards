@@ -3,11 +3,13 @@ import { combineReducers } from 'redux';
 
 import entities from './entities';
 import app from './app';
+import cardSearchForm from './cardSearchForm';
 
 const rootReducer = combineReducers({
   router,
   entities,
-  app
+  app,
+  cardSearchForm
 });
 
 export default rootReducer;
