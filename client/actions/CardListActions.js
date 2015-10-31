@@ -5,8 +5,9 @@ export const CARD_LIST__SUBMIT = 'CARD_LIST__SUBMIT';
 export const CARD_LIST__REQUEST = 'CARD_LIST__REQUEST';
 export const CARD_LIST__SUCCESS = 'CARD_LIST__SUCCESS';
 export const CARD_LIST__ERROR = 'CARD_LIST__ERROR';
+export const CARD_LIST__GAME_SUCCESS = 'CARD_LIST__GAME_SUCCESS';
 
-import { requestCards } from '../utils/APIUtils';
+import { requestCards, putGame } from '../utils/APIUtils';
 
 function _changeText(name, value) {
   return {
@@ -57,6 +58,13 @@ function _error() {
   };
 }
 
+function _gameSuccess(response) {
+  return {
+    type: CARD_LIST__GAME_SUCCESS,
+    response
+  };
+}
+
 export function changeText(name, value) {
   return _changeText(name, value);
 }
@@ -75,6 +83,15 @@ export function submit(params) {
       .then(
         response => dispatch(_success(response)),
         err => dispatch(_error(err))
+    );
+  };
+}
+
+export function submitGame(card, total) {
+  return dispatch => {
+    putGame(card, total)
+      .then(
+        response => dispatch(_gameSuccess(response))
       );
   };
 }

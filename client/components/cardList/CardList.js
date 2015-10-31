@@ -6,7 +6,7 @@ import CardPanel from '../cardPanel/CardPanel';
 
 class CardList extends Component {
   render() {
-    const { cards } = this.props;
+    const { cards, onSubmitGame } = this.props;
 
     return (
       <div className="CardList__root">
@@ -18,7 +18,10 @@ class CardList extends Component {
               >
               <div className="CardList__actions">
                 <div><span>{'In game: ' + card.gameTotal}</span></div>
-                <button>Add to game</button>
+                {
+                  onSubmitGame ?
+                    <button onClick={() => onSubmitGame(card, card.gameTotal + 1)}>Add to game</button> : null
+                }
               </div>
             </CardPanel>
           ))
@@ -29,7 +32,8 @@ class CardList extends Component {
 }
 
 CardList.propTypes = {
-  cards: PropTypes.array.isRequired
+  cards: PropTypes.array.isRequired,
+  onSubmitGame: PropTypes.func
 };
 
 CardList.defaultProps = {};

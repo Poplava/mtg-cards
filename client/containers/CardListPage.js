@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { changeText, changeCheckbox, submit } from '../actions/CardListActions';
+import { changeText, changeCheckbox, submit, submitGame } from '../actions/CardListActions';
 
 import PageHead from '../components/pageHead/PageHead';
 import SearchForm from '../components/searchForm/SearchForm';
@@ -9,7 +9,7 @@ import CardList from '../components/cardList/CardList';
 
 class CardListPage extends Component {
   render() {
-    const { params, total, status, cards, changeText, changeCheckbox, submit } = this.props;
+    const { userIsAdmin, params, total, status, cards, changeText, changeCheckbox, submit, submitGame } = this.props;
 
     return (
       <div>
@@ -23,6 +23,7 @@ class CardListPage extends Component {
           />
         <CardList
           cards={cards}
+          onSubmitGame={userIsAdmin ? submitGame : null}
           />
         {
           status === 'request' ?
@@ -34,20 +35,24 @@ class CardListPage extends Component {
 }
 
 CardListPage.propTypes = {
+  userIsAdmin: PropTypes.bool.isRequired,
   params: PropTypes.object.isRequired,
   total: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
   changeText: PropTypes.func.isRequired,
   changeCheckbox: PropTypes.func.isRequired,
-  submit: PropTypes.func.isRequired
+  submit: PropTypes.func.isRequired,
+  submitGame: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   const { params, total, status, cards } = state.cardList;
   const cardsById = state.entities.cards;
+  const usersById = state.entities.users;
 
   return {
+    userIsAdmin: state.entities.users[state.app.user].roles.indexOf('admin') > -1,
     params,
     status,
     total,
@@ -58,5 +63,6 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   changeText,
   changeCheckbox,
-  submit
+  submit,
+  submitGame
 })(CardListPage);
