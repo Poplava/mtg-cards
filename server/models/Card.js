@@ -98,7 +98,7 @@ schema.statics.mapGames = function(cards, games) {
     });
 
     card = card.toJSON();
-    card.game = game;
+    card.gameTotal = game ? game.total : 0;
 
     return card;
   });

@@ -6,7 +6,7 @@ import CardName from './CardName';
 
 class CardPanel extends Component {
   render() {
-    const { card } = this.props;
+    const { card, children } = this.props;
 
     return (
       <div className="CardPanel__root">
@@ -14,12 +14,14 @@ class CardPanel extends Component {
           <img className="CardPanel__picture" src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
         </div>
         <CardName {...card} />
+        {children ? children : null}
       </div>
     );
   }
 }
 
 CardPanel.propTypes = {
+  children: PropTypes.node,
   card: PropTypes.object.isRequired
 };
 

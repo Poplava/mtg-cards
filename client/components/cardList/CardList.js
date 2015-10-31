@@ -15,7 +15,12 @@ class CardList extends Component {
             <CardPanel
               key={card._id}
               card={card}
-              />
+              >
+              <div className="CardList__actions">
+                <div><span>{'In game: ' + card.gameTotal}</span></div>
+                <button>Add to game</button>
+              </div>
+            </CardPanel>
           ))
         }
       </div>
