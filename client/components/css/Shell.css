@@ -1,0 +1,14 @@
+.root {
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.nav {
+  border-bottom: 1px solid #999;
+  padding: 0 20px;
+}
+
+.content {
+  background-color: #e8e8e8;
+  flex-grow: 1;
+}

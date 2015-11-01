@@ -12,7 +12,7 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.{json,jade,less,jsx,js}]
+[*.{json,jade,less,css,jsx,js}]
 indent_size = 2
 
 [*.md]

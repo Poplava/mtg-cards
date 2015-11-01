@@ -12,7 +12,8 @@ module.exports = {
     publicPath: '/static/'
   },
   resolve: {
-    root: path.resolve('./client')
+    root: path.resolve('./client'),
+    modulesDirectories: ['node_modules', 'client/components']
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -26,7 +27,10 @@ module.exports = {
       include: __dirname
     }, {
       test: /\.less$/,
-      loader: 'style!css!less'
+      loader: 'style!css?modules&localIdentName=IP-[name]__[local]!less'
+    }, {
+      test: /\.css/,
+      loader: 'style!css?modules&localIdentName=IP-[name]__[local]'
     }, {
       test: /\.(eot|png|jpg|svg|woff|woff2|ttf)(\?.*)?$/,
       loader: 'file'

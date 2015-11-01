@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
-import App from './containers/App';
-import CardListPage from './containers/CardListPage';
-import DeckListPage from './containers/DeckListPage';
+import Shell from './containers/Shell';
+import CardList from './containers/CardList';
+//import CardListPage from './containers/CardListPage';
+//import DeckListPage from './containers/DeckListPage';
 
 
 export default (
-  <Route component={App}>
-    <Route path="/cards" component={CardListPage} />
-    <Route path="/decks" component={DeckListPage} />
+  <Route component={Shell}>
+    <Route path="/cards" component={CardList} />
     <Redirect from="*" to="/cards" />
   </Route>
 );

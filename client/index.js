@@ -9,8 +9,6 @@ import configureStore from './store/configureStore';
 import request from 'superagent';
 window._r = request;
 
-//import './components/app/less/bootstrap.less';
-
 const store = configureStore();
 window._s = store;
 
