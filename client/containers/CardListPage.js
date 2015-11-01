@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { userIsAdminSelector } from '../selectors/UserSelectors';
 import { cardListSelector } from '../selectors/CardSelectors';
 
-import { changeText, changeCheckbox, submit, submitGame } from '../actions/CardListActions';
+import { changeText, changeCheckbox, submit, submitGame, more } from '../actions/CardListActions';
 
 import CardSearchBox from 'CardSearchBox';
 import CardList from 'CardList';
@@ -14,6 +14,7 @@ class CardListPage extends Component {
   render() {
     const {
       params,
+      skip,
       total,
       status,
       isAdmin,
@@ -21,7 +22,8 @@ class CardListPage extends Component {
       changeText,
       changeCheckbox,
       submit,
-      submitGame
+      submitGame,
+      more
       } = this.props;
 
     return (
@@ -41,6 +43,10 @@ class CardListPage extends Component {
           status === 'request' ?
             <Loader /> : null
         }
+        {
+          status !== 'request' && skip < total ?
+            <div><button onClick={more}>More</button><br /><br /></div> : null
+        }
       </div>
     );
   }
@@ -48,6 +54,7 @@ class CardListPage extends Component {
 
 CardListPage.propTypes = {
   params: PropTypes.object.isRequired,
+  skip: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool.isRequired,
@@ -56,14 +63,16 @@ CardListPage.propTypes = {
   changeText: PropTypes.func.isRequired,
   changeCheckbox: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
-  submitGame: PropTypes.func.isRequired
+  submitGame: PropTypes.func.isRequired,
+  more: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
-  const { params, total, status } = state.cardList;
+  const { params, skip, total, status } = state.cardList;
 
   return {
     params,
+    skip,
     total,
     status,
     isAdmin: userIsAdminSelector(state),
@@ -75,5 +84,6 @@ export default connect(mapStateToProps, {
   changeText,
   changeCheckbox,
   submit,
-  submitGame
+  submitGame,
+  more
 })(CardListPage);
