@@ -6,6 +6,8 @@ import styles from 'css/CardSearchBox.less';
 
 class CardSearchBox extends Component {
   render() {
+    const { params, total, onChangeText, onChangeCheckbox, onSubmit } = this.props;
+
     return (
       <div className={styles.root}>
         <div className={styles.box}>
@@ -13,11 +15,13 @@ class CardSearchBox extends Component {
             <input
               type="text"
               placeholder="Enter a name"
+              value={params.name}
+              onChange={event => onChangeText('name', event.target.value)}
               />
             <br/>
-            <button>Search</button>
+            <button onClick={event => onSubmit(params)}>Search</button>
             <br/>
-            {'Total found: ' + 0}
+            {'Total found: ' + total}
           </div>
           <div>
             <div>Types:</div>
@@ -27,6 +31,8 @@ class CardSearchBox extends Component {
                   <label>
                     <input
                       type="checkbox"
+                      onChange={event => onChangeCheckbox('types', type, event.target.checked)}
+                      checked={params.types.indexOf(type) >= 0}
                       />
                     {type}
                   </label>
@@ -42,6 +48,8 @@ class CardSearchBox extends Component {
                   <label>
                     <input
                       type="checkbox"
+                      onChange={event => onChangeCheckbox('colors', color, event.target.checked)}
+                      checked={params.colors.indexOf(color) >= 0}
                       />
                     {color}
                   </label>
@@ -57,6 +65,8 @@ class CardSearchBox extends Component {
                   <label>
                     <input
                       type="checkbox"
+                      onChange={event => onChangeCheckbox('cmc', cmc, event.target.checked)}
+                      checked={params.cmc.indexOf(cmc) >= 0}
                       />
                     {cmc}
                   </label>
@@ -70,8 +80,12 @@ class CardSearchBox extends Component {
   }
 }
 
-CardSearchBox.propTypes = {};
-
-CardSearchBox.defaultProps = {};
+CardSearchBox.propTypes = {
+  params: PropTypes.object.isRequired,
+  total: PropTypes.number.isRequired,
+  onChangeText: PropTypes.func.isRequired,
+  onChangeCheckbox: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
+};
 
 export default CardSearchBox;
