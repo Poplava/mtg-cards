@@ -63,7 +63,7 @@ html, body {
 }
 
 body, button, input, textarea {
-  font-family: 'proxima-nova', 'Helvetica Neue', Arial, Helvetica, sans-serif
+  font-family: "Ubuntu", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 a, a:visited {

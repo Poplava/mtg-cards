@@ -1,0 +1,11 @@
+.root {
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.loader {
+  background: url(../images/loader.gif) no-repeat;
+  width: 100px;
+  height: 100px;
+}

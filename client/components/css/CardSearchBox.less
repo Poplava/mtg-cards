@@ -1,0 +1,10 @@
+.root {
+  composes: boxWrap from './Box.css';
+}
+
+.box {
+  composes: box from './Box.css';
+  padding: 20px;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}

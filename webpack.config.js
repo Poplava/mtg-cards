@@ -32,7 +32,7 @@ module.exports = {
       test: /\.css/,
       loader: 'style!css?modules&localIdentName=IP-[name]__[local]'
     }, {
-      test: /\.(eot|png|jpg|svg|woff|woff2|ttf)(\?.*)?$/,
+      test: /\.(eot|png|gif|jpg|svg|woff|woff2|ttf)(\?.*)?$/,
       loader: 'file'
     }]
   }
